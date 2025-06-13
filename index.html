@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Carta Interactiva</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f9d5ec, #fef2f4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+    }
+
+    .envelope {
+      width: 200px;
+      height: 150px;
+      background-color: #ff6f91;
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease;
+      z-index: 2;
+    }
+
+    .envelope:hover {
+      transform: scale(1.05);
+    }
+
+    .flap {
+      width: 0;
+      height: 0;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 75px solid #ff8fab;
+      position: absolute;
+      top: -75px;
+      left: 0;
+      z-index: 3;
+      transition: transform 1s ease;
+      transform-origin: bottom;
+    }
+
+    .message {
+      display: none;
+      margin-top: 40px;
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      max-width: 400px;
+      animation: fadeIn 1.5s ease forwards;
+      z-index: 1;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+      animation: floatUp 4s infinite ease-in;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-300px) scale(1.5) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="envelope" id="envelope" onclick="openCard()">
+      <div class="flap" id="flap"></div>
+    </div>
+    <div class="message" id="message">
+      <h2>💌 Mensaje para mi hermosa novia 💌</h2>
+      <p id="customText">Gracias por ser parte de mi vida amor, soy muy feliz contigo de verdad, compartir mi dia a dia a tu lado me hace muy feliz,
+        estoy muy orgulloso de que seas mi novia y de tener a alguien tan excelente en mi vida.  ✨</p>
+    </div>
+    <audio id="bgMusic" loop>
+      <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+      Tu navegador no soporta audio.
+    </audio>
+  </div>
+
+  <script>
+    let opened = false;
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = '100%';
+      heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+
+    function openCard() {
+      if (opened) return;
+      opened = true;
+
+      const flap = document.getElementById('flap');
+      const envelope = document.getElementById('envelope');
+      flap.style.transform = 'rotateX(180deg)';
+
+      setTimeout(() => {
+        envelope.style.transition = 'all 1s ease';
+        envelope.style.transform = 'translate(300px, -300px) scale(0)';
+        setTimeout(() => envelope.style.display = 'none', 1000);
+      }, 500);
+
+      setTimeout(() => {
+        document.getElementById('message').style.display = 'block';
+        document.getElementById('bgMusic').play();
+
+        // corazones flotando
+        setInterval(createHeart, 500);
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
