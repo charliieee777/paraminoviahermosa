@@ -93,11 +93,11 @@
 </head>
 <body>
 
-  <!-- MÚSICA DE FONDO -->
-<iframe width="0" height="0" src="https://www.youtube.com/embed/Ic458P8NMew?autoplay=1&loop=1&playlist=Ic458P8NMew" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="display:none;"></iframe>
+  <!-- 🎵 AUDIO LOCAL (reemplaza el nombre si tu canción se llama distinto) -->
+  <audio id="miCancion" src="Perfect (Instrumental) - Ed Sheeran.mp3" type="audio/mpeg" loop></audio>
 
   <div class="start-screen">
-    <button class="heart-button" onclick="mostrarContenido()">💗 Ábreme</button>
+    <button class="heart-button" onclick="mostrarContenidoYReproducir()">💗 Ábreme</button>
   </div>
 
   <div id="main-content">
@@ -135,12 +135,17 @@
   </div>
 
   <script>
-    function mostrarContenido() {
+    function mostrarContenidoYReproducir() {
       document.querySelector('.start-screen').style.display = 'none';
       document.getElementById('main-content').style.display = 'block';
+      const audio = document.getElementById('miCancion');
+      audio.play().catch(error => {
+        console.error('No se pudo reproducir automáticamente:', error);
+      });
     }
   </script>
 
 </body>
 </html>
+
 
