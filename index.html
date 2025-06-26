@@ -2,174 +2,145 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mi Carta Interactiva</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Para mi novia hermosa</title>
   <style>
     body {
+      background: linear-gradient(to right, #ffe1e1, #ffe6fa);
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #f9d5ec, #fef2f4);
+      padding: 20px;
+      text-align: center;
+    }
+    #main-content {
+      display: none;
+    }
+    .heart-button {
+      background-color: #ff5e78;
+      border: none;
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      font-size: 1.2em;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    .heart-button:hover {
+      transform: scale(1.1);
+    }
+    .start-screen {
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
     }
-
-    .container {
-      text-align: center;
-      position: relative;
+    h1 {
+      color: #ff5e78;
+      font-size: 2.5em;
+      margin-bottom: 10px;
     }
-
-    .envelope {
-      width: 200px;
-      height: 150px;
-      background-color: #ff6f91;
-      border-radius: 10px;
-      cursor: pointer;
-      position: relative;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      transition: transform 0.4s ease;
-      z-index: 2;
+    p {
+      font-size: 1.2em;
+      color: #5e5e5e;
     }
-
-    .envelope:hover {
-      transform: scale(1.05);
+    .meme-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
     }
-
-    .flap {
-      width: 0;
-      height: 0;
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      border-bottom: 75px solid #ff8fab;
-      position: absolute;
-      top: -75px;
-      left: 0;
-      z-index: 3;
-      transition: transform 1s ease;
-      transform-origin: bottom;
-    }
-
-    .message {
-      display: none;
-      margin-top: 40px;
-      background-color: #fff;
-      padding: 25px;
+    .meme {
+      background-color: white;
       border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      max-width: 400px;
-      animation: fadeIn 1.5s ease forwards;
-      z-index: 1;
-      position: relative;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 300px;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .editable-subtitle {
+      border: none;
+      background-color: transparent;
+      width: 100%;
+      font-size: 1.1em;
+      text-align: center;
+      color: #d94a63;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
-
-    .heart {
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
-      animation: floatUp 4s infinite ease-in;
-      opacity: 0.7;
+    .editable-text {
+      border: none;
+      background-color: transparent;
+      width: 100%;
+      height: 80px;
+      resize: none;
+      font-size: 0.95em;
+      text-align: center;
+      color: #5e5e5e;
     }
-
-    .heart::before,
-    .heart::after {
-      content: "";
-      width: 20px;
-      height: 20px;
-      background-color: red;
-      position: absolute;
-      border-radius: 50%;
+    .editable-subtitle:focus, .editable-text:focus {
+      outline: none;
     }
-
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(1) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-300px) scale(1.5) rotate(45deg);
-        opacity: 0;
-      }
-    }
-
-    audio {
-      display: none;
+    footer {
+      margin-top: 40px;
+      color: #888;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="envelope" id="envelope" onclick="openCard()">
-      <div class="flap" id="flap"></div>
+
+  <!-- MÚSICA DE FONDO -->
+<iframe width="0" height="0" src="https://www.youtube.com/embed/Ic458P8NMew?autoplay=1&loop=1&playlist=Ic458P8NMew" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="display:none;"></iframe>
+
+  <div class="start-screen">
+    <button class="heart-button" onclick="mostrarContenido()">💗 Ábreme</button>
+  </div>
+
+  <div id="main-content">
+    <h1>🌹 Mensajitos bonitos para recordar lo mucho que te amo 🌹</h1>
+    <p>QUE CADA MOMENTO SE VUELVA ÚNICO Y ETERNO</p>
+
+    <div class="meme-container">
+      <div class="meme">
+        <input class="editable-subtitle" type="text" value="Tu sonrisa 💫">
+        <textarea class="editable-text">Cuando sonríes, haces que todo se ilumine, tu sonrisa me transmite demasiada felicidad, paz y tranquilidad. </textarea>
+      </div>
+      <div class="meme">
+        <input class="editable-subtitle" type="text" value="Tus abrazos 🤗">
+        <textarea class="editable-text">No hay refugio más cálido que tus brazos, es ese lugar donde siempre quiero estar.</textarea>
+      </div>
+      <div class="meme">
+        <input class="editable-subtitle" type="text" value="Nuestros momentos 🎡">
+        <textarea class="editable-text">Cada momento a tu lado es un tesoro valioso que guardo en el alma y en mi corazon. Gracias por tantos momentos bonitos y bueno... los que faltan.</textarea>
+      </div>
+      <div class="meme">
+        <input class="editable-subtitle" type="text" value="Tu voz 🎶">
+        <textarea class="editable-text">Escucharte  tu voz es como una canción que nunca me canso de escuchar y repetir. soy feliz con escucharte independientemente de la situacion. </textarea>
+      </div>
+      <div class="meme">
+        <input class="editable-subtitle" type="text" value="Nuestro amor 💖">
+        <textarea class="editable-text">Lo que siento por ti no tiene limites. Eres mi persona favorita, ayer, hoy, mañana y siempre.</textarea>
+      </div>
+      <div class="meme">
+        <input class="editable-subtitle" type="text" value="Eres mi todo 🌍">
+        <textarea class="editable-text">No necesito más que a ti para ser feliz. Te amo más de lo que puedes imaginar.</textarea>
+      </div>
     </div>
-    <div class="message" id="message">
-      <h2>💌 QUIERO QUE SEPAS UNA COSA 💌</h2>
-      <p id="customText"> quiero mi vida entera contigo, estar siempre a tu lado agarrado de la mano, poder pasar siempre buenos ratos. eres esa persona que tanto soñe, por lo tanto siempre te amare.  ✨</p>
-    </div>
-    <audio id="bgMusic" loop>
-      <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-      Tu navegador no soporta audio.
-    </audio>
+
+    <footer>puede que nos demos una pausa, pero volvere en mi mejor version para disfrutar de todo esto que tanto amo de ti, y no solo de esto, si no de muchas cosas mas 💖</footer>
   </div>
 
   <script>
-    let opened = false;
-
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.top = '100%';
-      heart.style.animationDuration = (2 + Math.random() * 2) + 's';
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 4000);
-    }
-
-    function openCard() {
-      if (opened) return;
-      opened = true;
-
-      const flap = document.getElementById('flap');
-      const envelope = document.getElementById('envelope');
-      flap.style.transform = 'rotateX(180deg)';
-
-      setTimeout(() => {
-        envelope.style.transition = 'all 1s ease';
-        envelope.style.transform = 'translate(300px, -300px) scale(0)';
-        setTimeout(() => envelope.style.display = 'none', 1000);
-      }, 500);
-
-      setTimeout(() => {
-        document.getElementById('message').style.display = 'block';
-        document.getElementById('bgMusic').play();
-
-        // corazones flotando
-        setInterval(createHeart, 500);
-      }, 1000);
+    function mostrarContenido() {
+      document.querySelector('.start-screen').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
     }
   </script>
+
 </body>
 </html>
+
