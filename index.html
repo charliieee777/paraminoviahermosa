@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Para mi novia hermosa</title>
   <style>
     body {
@@ -12,9 +12,18 @@
       padding: 20px;
       text-align: center;
     }
+
     #main-content {
       display: none;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
+
+    #main-content.visible {
+      display: block;
+      opacity: 1;
+    }
+
     .heart-button {
       background-color: #ff5e78;
       border: none;
@@ -25,12 +34,22 @@
       color: white;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s infinite;
     }
-    .heart-button:hover {
-      transform: scale(1.1);
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
     }
+
     .start-screen {
       display: flex;
       flex-direction: column;
@@ -38,15 +57,18 @@
       align-items: center;
       height: 100vh;
     }
+
     h1 {
       color: #ff5e78;
       font-size: 2.5em;
       margin-bottom: 10px;
     }
+
     p {
       font-size: 1.2em;
       color: #5e5e5e;
     }
+
     .meme-container {
       display: flex;
       flex-wrap: wrap;
@@ -54,13 +76,25 @@
       gap: 25px;
       margin-top: 30px;
     }
+
+    a {
+      text-decoration: none;
+    }
+
     .meme {
       background-color: white;
       border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       padding: 20px;
       width: 300px;
+      transition: transform 0.3s ease;
     }
+
+    .meme:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
     .editable-subtitle {
       border: none;
       background-color: transparent;
@@ -70,7 +104,9 @@
       color: #d94a63;
       font-weight: bold;
       margin-bottom: 10px;
+      pointer-events: none;
     }
+
     .editable-text {
       border: none;
       background-color: transparent;
@@ -80,10 +116,9 @@
       font-size: 0.95em;
       text-align: center;
       color: #5e5e5e;
+      pointer-events: none;
     }
-    .editable-subtitle:focus, .editable-text:focus {
-      outline: none;
-    }
+
     footer {
       margin-top: 40px;
       color: #888;
@@ -92,59 +127,79 @@
   </style>
 </head>
 <body>
-
-  <!-- 🎵 AUDIO LOCAL (reemplaza el nombre si tu canción se llama distinto) -->
+  <!-- 🎵 Audio de fondo -->
   <audio id="miCancion" src="Perfect (Instrumental) - Ed Sheeran.mp3" type="audio/mpeg" loop></audio>
 
+  <!-- Pantalla de inicio -->
   <div class="start-screen">
     <button class="heart-button" onclick="mostrarContenidoYReproducir()">💗 Ábreme</button>
   </div>
 
+  <!-- Contenido principal -->
   <div id="main-content">
     <h1>🌹 Mensajitos bonitos para recordar lo mucho que te amo 🌹</h1>
     <p>QUE CADA MOMENTO SE VUELVA ÚNICO Y ETERNO</p>
 
     <div class="meme-container">
-      <div class="meme">
-        <input class="editable-subtitle" type="text" value="Tu sonrisa 💫">
-        <textarea class="editable-text">Cuando sonríes, haces que todo se ilumine, tu sonrisa me transmite demasiada felicidad, paz y tranquilidad. </textarea>
-      </div>
-      <div class="meme">
-        <input class="editable-subtitle" type="text" value="Tus abrazos 🤗">
-        <textarea class="editable-text">No hay refugio más cálido que tus brazos, es ese lugar donde siempre quiero estar.</textarea>
-      </div>
-      <div class="meme">
-        <input class="editable-subtitle" type="text" value="Nuestros momentos 🎡">
-        <textarea class="editable-text">Cada momento a tu lado es un tesoro valioso que guardo en el alma y en mi corazon. Gracias por tantos momentos bonitos y bueno... los que faltan.</textarea>
-      </div>
-      <div class="meme">
-        <input class="editable-subtitle" type="text" value="Tu voz 🎶">
-        <textarea class="editable-text">Escucharte  tu voz es como una canción que nunca me canso de escuchar y repetir. soy feliz con escucharte independientemente de la situacion. </textarea>
-      </div>
-      <div class="meme">
-        <input class="editable-subtitle" type="text" value="Nuestro amor 💖">
-        <textarea class="editable-text">Lo que siento por ti no tiene limites. Eres mi persona favorita, ayer, hoy, mañana y siempre.</textarea>
-      </div>
-      <div class="meme">
-        <input class="editable-subtitle" type="text" value="Eres mi todo 🌍">
-        <textarea class="editable-text">No necesito más que a ti para ser feliz. Te amo más de lo que puedes imaginar.</textarea>
-      </div>
+      <a href="sonrisa.html">
+        <div class="meme">
+          <input class="editable-subtitle" type="text" value="Tu sonrisa 💫" readonly />
+          <textarea class="editable-text" readonly>Cuando sonríes, haces que todo se ilumine y me llenas de felicidad.</textarea>
+        </div>
+      </a>
+
+      <a href="abrazo.html">
+        <div class="meme">
+          <input class="editable-subtitle" type="text" value="Tus abrazos 🤗" readonly />
+          <textarea class="editable-text" readonly>En tus brazos siento la paz que no encuentro en ningún otro lugar.</textarea>
+        </div>
+      </a>
+
+      <a href="momentos.html">
+        <div class="meme">
+          <input class="editable-subtitle" type="text" value="Nuestros momentos 🎡" readonly />
+          <textarea class="editable-text" readonly>Cada instante contigo es un tesoro que guardo en mi corazón.</textarea>
+        </div>
+      </a>
+
+      <a href="voz.html">
+        <div class="meme">
+          <input class="editable-subtitle" type="text" value="Tu voz 🎶" readonly />
+          <textarea class="editable-text" readonly>Tu voz me calma, me alegra y me hace sentir cerca de ti.</textarea>
+        </div>
+      </a>
+
+      <a href="amor.html">
+        <div class="meme">
+          <input class="editable-subtitle" type="text" value="Nuestro amor 💖" readonly />
+          <textarea class="editable-text" readonly>Este amor es mi refugio, mi motor, mi todo. Gracias por existir.</textarea>
+        </div>
+      </a>
+
+      <a href="todo.html">
+        <div class="meme">
+          <input class="editable-subtitle" type="text" value="Eres mi todo 🌍" readonly />
+          <textarea class="editable-text" readonly>No necesito nada más si tú estás conmigo. Te amo infinito.</textarea>
+        </div>
+      </a>
     </div>
 
-    <footer>puede que nos demos una pausa, pero volvere en mi mejor version para disfrutar de todo esto que tanto amo de ti, y no solo de esto, si no de muchas cosas mas 💖</footer>
+    <footer>
+      Puede que nos demos una pausa, pero volveré en mi mejor versión para disfrutar de todo esto que tanto amo de ti 💖
+    </footer>
   </div>
 
   <script>
     function mostrarContenidoYReproducir() {
       document.querySelector('.start-screen').style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
+      const contenido = document.getElementById('main-content');
+      contenido.classList.add('visible');
       const audio = document.getElementById('miCancion');
       audio.play().catch(error => {
         console.error('No se pudo reproducir automáticamente:', error);
       });
     }
   </script>
-
 </body>
 </html>
 
